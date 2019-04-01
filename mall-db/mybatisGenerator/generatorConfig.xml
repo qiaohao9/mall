@@ -43,7 +43,7 @@
 
         <!--数据库连接信息-->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/litemall?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;verifyServerCertificate=false&amp;useSSL=false"
+                        connectionURL="jdbc:mysql://vastpeng.me:3307/mall?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;verifyServerCertificate=false&amp;useSSL=false"
                         userId="root"
                         password="123456"/>
 
@@ -56,72 +56,72 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="me.vastpeng.mall.db.dao"
                              targetProject="src/main/java"/>
         <!--表名-->
-        <table tableName="litemall_ad">
+        <table tableName="mall_ad">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_address">
+        <table tableName="mall_address">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_admin">
+        <table tableName="mall_admin">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="role_ids" javaType="java.lang.Integer[]"
                             typeHandler="me.vastpeng.mall.db.mybatis.JsonIntegerArrayTypeHandler"/>
         </table>
-        <table tableName="litemall_brand">
+        <table tableName="mall_brand">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_cart">
+        <table tableName="mall_cart">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="specifications" javaType="java.lang.String[]"
                             typeHandler="me.vastpeng.mall.db.mybatis.JsonStringArrayTypeHandler"/>
         </table>
-        <table tableName="litemall_category">
+        <table tableName="mall_category">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_collect">
+        <table tableName="mall_collect">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_comment">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-            <columnOverride column="pic_urls" javaType="java.lang.String[]"
-                            typeHandler="me.vastpeng.mall.db.mybatis.JsonStringArrayTypeHandler"/>
-        </table>
-
-        <table tableName="litemall_feedback">
+        <table tableName="mall_comment">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="pic_urls" javaType="java.lang.String[]"
                             typeHandler="me.vastpeng.mall.db.mybatis.JsonStringArrayTypeHandler"/>
         </table>
 
-        <table tableName="litemall_footprint">
+        <table tableName="mall_feedback">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="pic_urls" javaType="java.lang.String[]"
+                            typeHandler="me.vastpeng.mall.db.mybatis.JsonStringArrayTypeHandler"/>
+        </table>
+
+        <table tableName="mall_footprint">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_goods">
+        <table tableName="mall_goods">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="gallery" javaType="java.lang.String[]"
                             typeHandler="me.vastpeng.mall.db.mybatis.JsonStringArrayTypeHandler"/>
         </table>
-        <table tableName="litemall_goods_attribute">
+        <table tableName="mall_goods_attribute">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_goods_specification">
+        <table tableName="mall_goods_specification">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_goods_product">
+        <table tableName="mall_goods_product">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="specifications" javaType="java.lang.String[]"
                             typeHandler="me.vastpeng.mall.db.mybatis.JsonStringArrayTypeHandler"/>
         </table>
-        <table tableName="litemall_issue">
+        <table tableName="mall_issue">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_keyword">
+        <table tableName="mall_keyword">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_order">
+        <table tableName="mall_order">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_order_goods">
+        <table tableName="mall_order_goods">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="specifications" javaType="java.lang.String[]"
                             typeHandler="me.vastpeng.mall.db.mybatis.JsonStringArrayTypeHandler"/>
@@ -129,49 +129,49 @@
                             typeHandler="me.vastpeng.mall.db.mybatis.JsonIntegerArrayTypeHandler"/>
 
         </table>
-        <table tableName="litemall_region">
+        <table tableName="mall_region">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_search_history">
+        <table tableName="mall_search_history">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_storage">
+        <table tableName="mall_storage">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_topic">
+        <table tableName="mall_topic">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="goods" javaType="java.lang.Integer[]"
                             typeHandler="me.vastpeng.mall.db.mybatis.JsonIntegerArrayTypeHandler"/>
         </table>
-        <table tableName="litemall_user">
+        <table tableName="mall_user">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_system">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
-
-        <table tableName="litemall_user_formid">
+        <table tableName="mall_system">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 
-        <table tableName="litemall_groupon_rules">
+        <table tableName="mall_user_formid">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_groupon">
+
+        <table tableName="mall_groupon_rules">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_coupon">
+        <table tableName="mall_groupon">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="mall_coupon">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="goods_value" javaType="java.lang.Integer[]"
                             typeHandler="me.vastpeng.mall.db.mybatis.JsonIntegerArrayTypeHandler"/>
         </table>
-        <table tableName="litemall_coupon_user">
+        <table tableName="mall_coupon_user">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_role">
+        <table tableName="mall_role">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="litemall_permission">
+        <table tableName="mall_permission">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
