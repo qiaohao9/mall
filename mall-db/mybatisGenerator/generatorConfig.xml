@@ -42,7 +42,7 @@
         </commentGenerator>
 
         <!--数据库连接信息-->
-        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://vastpeng.me:3307/mall?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;verifyServerCertificate=false&amp;useSSL=false"
                         userId="root"
                         password="123456"/>
