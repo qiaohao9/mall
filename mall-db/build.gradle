@@ -47,7 +47,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     implementation "mysql:mysql-connector-java:5.1.46"
-    implementation "com.alibaba:druid-spring-boot-starter:*"
+    implementation "com.alibaba:druid-spring-boot-starter:1.1.10"
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
     implementation "com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10"
     implementation mybatisGeneratorCore
