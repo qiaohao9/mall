@@ -51,10 +51,10 @@
             <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="me.vastpeng.mall.db.domain" targetProject="src/main/java"/>
+        <javaModelGenerator targetPackage="me.vastpeng.mall.db.domain" targetProject="src/main/kotlin"/>
         <sqlMapGenerator targetPackage="me.vastpeng.mall.db.dao" targetProject="src/main/resources"/>
         <javaClientGenerator type="XMLMAPPER" targetPackage="me.vastpeng.mall.db.dao"
-                             targetProject="src/main/java"/>
+                             targetProject="src/main/kotlin"/>
         <!--表名-->
         <table tableName="mall_ad">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
