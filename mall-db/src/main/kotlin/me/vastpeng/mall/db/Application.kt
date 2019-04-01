@@ -1,11 +1,14 @@
 package me.vastpeng.mall.db
 
+import org.mybatis.spring.annotation.MapperScan
+import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-@SpringBootApplication
-class DbApplication
+@SpringBootApplication(scanBasePackages = ["me.vastpeng.mall.db"])
+@MapperScan("me.vastpeng.mall.db.dao")
+class Application
 
 fun main(args: Array<String>) {
-    runApplication<DbApplication>(*args)
+    SpringApplication.run(Application::class.java, *args)
 }
