@@ -1,5 +1,8 @@
 package me.vastpeng.mall.db.util
 
+import me.vastpeng.mall.db.domain.MallOrder
+import java.lang.IllegalStateException
+
 /*
  * 订单流程：下单成功－》支付订单－》发货－》收货
  * 订单状态：
@@ -25,6 +28,84 @@ class OrderUtil {
         const val STATUS_REFUND: Short = 202
         const val STATUS_REFUND_CONFIRM: Short = 203
         const val STATUS_AUTO_CONFIRM: Short = 402
+
+        fun orderStatusText(order: MallOrder): String = when (order.orderStatus.toShort()) {
+            STATUS_CREATE -> "未付款"
+            STATUS_CANCEL -> "已取消"
+            STATUS_AUTO_CANCEL -> "已取消（系统）"
+            STATUS_PAY -> "已付款"
+            STATUS_REFUND -> "订单取消，退款中"
+            STATUS_REFUND_CONFIRM -> "已退款"
+            STATUS_SHIP -> "已发货"
+            STATUS_CONFIRM -> "已收货"
+            STATUS_AUTO_CONFIRM -> "已收货（系统)"
+            else -> throw IllegalStateException("orderStatus 不支持")
+        }
+
+        fun build(order: MallOrder): OrderHandlerOption {
+            var handlerOption = OrderHandlerOption()
+            when (order.orderStatus.toShort()) {
+                // 如果订单没有被取消，且没有支付，则可支付，可取消
+                STATUS_CREATE -> {
+                    handlerOption.cancel = true
+                    handlerOption.pay = true
+                }
+                // 如果订单已经取消或是已完成，则可删除
+                STATUS_CANCEL, STATUS_AUTO_CANCEL -> handlerOption.delete = true
+                // 如果订单已付款，没有发货，则可退款
+                STATUS_PAY -> handlerOption.refund = true
+                // 如果订单申请退款中，没有相关操作
+                STATUS_REFUND -> {
+                }
+                // 如果订单已经退款，则可删除
+                STATUS_REFUND_CONFIRM -> handlerOption.delete = true
+                // 如果订单已经发货，没有收货，则可收货操作，此时不能取消订单
+                STATUS_SHIP -> handlerOption.confirm = true
+                // 如果订单已经支付，且已经收货，则可删除、去评论和再次购买
+                STATUS_CONFIRM, STATUS_AUTO_CONFIRM -> {
+                    handlerOption.delete = true
+                    handlerOption.comment = true
+                    handlerOption.rebuy = true
+                }
+                else -> {
+                    throw IllegalStateException("status 不支持")
+                }
+            }
+
+            return handlerOption
+        }
+
+        fun orderStatus(showType: Int): List<Short>? {
+            // 全部订单
+            if (showType == 0) {
+                return null
+            }
+
+            var status = ArrayList<Short>(2)
+            when (showType) {
+                // 待付款订单
+                1 -> status.add(STATUS_CREATE)
+                // 待发货订单
+                2 -> status.add(STATUS_PAY)
+                // 待收货订单
+                3 -> status.add(STATUS_SHIP)
+                // 待评价订单
+                4 -> status.add(STATUS_CONFIRM)
+                else -> return null
+            }
+
+            return status
+        }
+
+        fun isCreateStatus(mallOrder: MallOrder) = OrderUtil.STATUS_CREATE == mallOrder.orderStatus.toShort()
+        fun isPayStatus(mallOrder: MallOrder) = OrderUtil.STATUS_PAY == mallOrder.orderStatus.toShort()
+        fun isShipStatus(mallOrder: MallOrder) = OrderUtil.STATUS_SHIP == mallOrder.orderStatus.toShort()
+        fun isConfirmStatus(mallOrder: MallOrder) = OrderUtil.STATUS_CONFIRM == mallOrder.orderStatus.toShort()
+        fun isCancelStatus(mallOrder: MallOrder) = OrderUtil.STATUS_CANCEL == mallOrder.orderStatus.toShort()
+        fun isAutoCancelStatus(mallOrder: MallOrder) = OrderUtil.STATUS_AUTO_CANCEL == mallOrder.orderStatus.toShort()
+        fun isRefundStatus(mallOrder: MallOrder) = OrderUtil.STATUS_REFUND == mallOrder.orderStatus.toShort()
+        fun isRefundConfirmStatus(mallOrder: MallOrder) = OrderUtil.STATUS_REFUND_CONFIRM == mallOrder.orderStatus.toShort()
+        fun isAutoConfirmStatus(mallOrder: MallOrder) = OrderUtil.STATUS_AUTO_CONFIRM == mallOrder.orderStatus.toShort()
     }
 }
 
