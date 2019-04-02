@@ -83,7 +83,7 @@ class MallCouponService {
         var criteria: MallCouponExample.Criteria = example.createCriteria()
 
         if (!StringUtils.isEmpty(name)) {
-            criteria.andNameEqualTo("% $name %")
+            criteria.andNameEqualTo("%$name%")
         }
         if (type != null) {
             criteria.andTypeEqualTo(type)
