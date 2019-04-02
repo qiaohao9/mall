@@ -1,9 +1,7 @@
 package me.vastpeng.mall.db.service
 
-import com.alibaba.druid.sql.visitor.functions.Lcase
 import me.vastpeng.mall.db.dao.GoodsProductMapper
 import me.vastpeng.mall.db.dao.MallGoodsProductMapper
-import me.vastpeng.mall.db.domain.MallGoodsExample
 import me.vastpeng.mall.db.domain.MallGoodsProduct
 import me.vastpeng.mall.db.domain.MallGoodsProductExample
 import org.springframework.stereotype.Service
