@@ -24,7 +24,7 @@ class CouponAssignService {
                 continue
             }
 
-            for (limit in coupon.limit..0) {
+            for (limit in coupon.limit downTo 0 + 1) {
                 var couponUser: MallCouponUser = MallCouponUser()
                 couponUser.couponId = couponId
                 couponUser.userId = userId

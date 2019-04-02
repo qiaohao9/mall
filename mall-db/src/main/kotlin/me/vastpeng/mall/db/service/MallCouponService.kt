@@ -121,7 +121,7 @@ class MallCouponService {
         var base: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         var random: Random = Random()
         var sb: StringBuffer = StringBuffer()
-        for (i in 0..num) {
+        for (i in 0 until num) {
             var number: Int = random.nextInt(base.length)
             sb.append(base[number])
         }
