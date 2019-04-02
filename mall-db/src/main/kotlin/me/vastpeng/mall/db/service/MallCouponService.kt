@@ -19,9 +19,9 @@ import javax.annotation.Resource
 @Service
 class MallCouponService {
     @Resource
-    private lateinit var couponMapper: MallCouponMapper
+    private var couponMapper: MallCouponMapper? = null
     @Resource
-    private lateinit var couponUserMapper: MallCouponUserMapper
+    private var couponUserMapper: MallCouponUserMapper? = null
 
     private var result: Array<MallCoupon.Column> = arrayOf(MallCoupon.Column.id, MallCoupon.Column.name, MallCoupon.Column.desc, MallCoupon.Column.tag, MallCoupon.Column.days, MallCoupon.Column.startTime, MallCoupon.Column.endTime, MallCoupon.Column.discount, MallCoupon.Column.min)
 
@@ -33,20 +33,20 @@ class MallCouponService {
         criteria.andTypeEqualTo(CouponConstant.TYPE_COMMON).andStatusEqualTo(CouponConstant.STATUS_NORMAL).andDeletedEqualTo(false)
         criteria.example().orderByClause = "$sort $order"
         PageHelper.startPage<Int>(offset, limit)
-        return couponMapper.selectByExampleSelective(criteria.example(), *result)
+        return couponMapper!!.selectByExampleSelective(criteria.example(), *result)
     }
 
     fun queryTotal(): Int {
         var example: MallCouponExample = MallCouponExample()
         example.or().andTypeEqualTo(CouponConstant.TYPE_COMMON).andStatusEqualTo(CouponConstant.STATUS_NORMAL).andDeletedEqualTo(false)
-        return couponMapper.countByExample(example).toInt()
+        return couponMapper!!.countByExample(example).toInt()
     }
 
     fun queryAvailableList(userId: Int, offset: Int, limit: Int): MutableList<MallCoupon>? {
         assert(userId != null)
         // 过滤掉登录账号已经领取过的coupon
         var c: MallCouponExample.Criteria = MallCouponExample.newAndCreateCriteria()
-        var used: List<MallCouponUser> = couponUserMapper.selectByExample(MallCouponUserExample.newAndCreateCriteria().andUserIdEqualTo(userId).example())
+        var used: List<MallCouponUser> = couponUserMapper!!.selectByExample(MallCouponUserExample.newAndCreateCriteria().andUserIdEqualTo(userId).example())
         if (used != null && !used.isEmpty()) {
             c.andIdNotIn(used.stream().map { it.couponId }.collect(Collectors.toList()))
         }
@@ -58,13 +58,13 @@ class MallCouponService {
     }
 
     fun findById(id: Int): MallCoupon {
-        return couponMapper.selectByPrimaryKey(id)
+        return couponMapper!!.selectByPrimaryKey(id)
     }
 
     fun findByCode(code: String): MallCoupon? {
         var example: MallCouponExample = MallCouponExample()
         example.or().andCodeEqualTo(code).andTypeEqualTo(CouponConstant.TYPE_CODE).andStatusEqualTo(CouponConstant.STATUS_NORMAL).andDeletedEqualTo(false)
-        var couponList: List<MallCoupon> = couponMapper.selectByExample(example)
+        var couponList: List<MallCoupon> = couponMapper!!.selectByExample(example)
         return when {
             couponList.size > 1 -> throw RuntimeException("")
             couponList.isEmpty() -> null
@@ -75,7 +75,7 @@ class MallCouponService {
     fun queryRegister(): List<MallCoupon> {
         var example: MallCouponExample = MallCouponExample()
         example.or().andTypeEqualTo(CouponConstant.TYPE_REGISTER).andStatusEqualTo(CouponConstant.STATUS_NORMAL).andDeletedEqualTo(false)
-        return couponMapper.selectByExample(example)
+        return couponMapper!!.selectByExample(example)
     }
 
     fun querySelective(name: String, type: Short, status: Short, page: Int, limit: Int, sort: String, order: String): List<MallCoupon> {
@@ -99,22 +99,22 @@ class MallCouponService {
         }
 
         PageHelper.startPage<Int>(page, limit)
-        return couponMapper.selectByExample(example)
+        return couponMapper!!.selectByExample(example)
     }
 
     fun add(coupon: MallCoupon) {
         coupon.addTime = LocalDateTime.now()
         coupon.updateTime = LocalDateTime.now()
-        couponMapper.insertSelective(coupon)
+        couponMapper!!.insertSelective(coupon)
     }
 
     fun updateById(coupon: MallCoupon): Int {
         coupon.updateTime = LocalDateTime.now()
-        return couponMapper.updateByPrimaryKeySelective(coupon)
+        return couponMapper!!.updateByPrimaryKeySelective(coupon)
     }
 
     fun deleteById(id: Int) {
-        couponMapper.logicalDeleteByPrimaryKey(id)
+        couponMapper!!.logicalDeleteByPrimaryKey(id)
     }
 
     private fun getRandomNum(num: Int): String {
@@ -139,7 +139,7 @@ class MallCouponService {
     fun queryExpired(): List<MallCoupon> {
         var example: MallCouponExample = MallCouponExample()
         example.or().andStatusEqualTo(CouponConstant.STATUS_NORMAL).andTimeTypeEqualTo(CouponConstant.TIME_TYPE_TIME).andDeletedEqualTo(false)
-        return couponMapper.selectByExample(example)
+        return couponMapper!!.selectByExample(example)
     }
 
 }

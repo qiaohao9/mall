@@ -12,14 +12,14 @@ import javax.annotation.Resource
 class MallGoodService {
     var columns = arrayOf(MallGoods.Column.id, MallGoods.Column.name, MallGoods.Column.brief, MallGoods.Column.picUrl, MallGoods.Column.isHot, MallGoods.Column.isNew, MallGoods.Column.counterPrice, MallGoods.Column.retailPrice)
     @Resource
-    private lateinit var goodsMapper: MallGoodsMapper
+    private var goodsMapper: MallGoodsMapper? = null
 
     fun queryByHot(offset: Int, limit: Int): List<MallGoods> {
         var example: MallGoodsExample = MallGoodsExample()
         example.or().andIsHotEqualTo(true).andIsOnSaleEqualTo(true).andDeletedEqualTo(false)
         example.orderByClause = "add_time desc"
         PageHelper.startPage<Int>(offset, limit)
-        return goodsMapper.selectByExampleSelective(example, *columns)
+        return goodsMapper!!.selectByExampleSelective(example, *columns)
     }
 
     fun queryByNew(offset: Int, limit: Int): List<MallGoods> {
@@ -27,7 +27,7 @@ class MallGoodService {
         example.or().andIsNewEqualTo(true).andIsOnSaleEqualTo(true).andDeletedEqualTo(false)
         example.orderByClause = "add_time desc"
         PageHelper.startPage<Int>(offset, limit)
-        return goodsMapper.selectByExampleSelective(example, *columns)
+        return goodsMapper!!.selectByExampleSelective(example, *columns)
     }
 
     fun queryByCategory(catList: List<Int>, offset: Int, limit: Int): List<MallGoods> {
@@ -35,7 +35,7 @@ class MallGoodService {
         example.or().andCategoryIdIn(catList).andIsOnSaleEqualTo(true).andDeletedEqualTo(false)
         example.orderByClause = "add_time desc"
         PageHelper.startPage<Int>(offset, limit)
-        return goodsMapper.selectByExampleSelective(example, *columns)
+        return goodsMapper!!.selectByExampleSelective(example, *columns)
     }
 
     fun queryByCategory(catId: Int, offset: Int, limit: Int): List<MallGoods> {
@@ -43,7 +43,7 @@ class MallGoodService {
         example.or().andCategoryIdEqualTo(catId).andIsOnSaleEqualTo(true).andDeletedEqualTo(false)
         example.orderByClause = "add_time desc"
         PageHelper.startPage<Int>(offset, limit)
-        return goodsMapper.selectByExampleSelective(example, *columns)
+        return goodsMapper!!.selectByExampleSelective(example, *columns)
     }
 
     fun querySelective(catId: Int, brandId: Int, keywords: String, isHot: Boolean, isNew: Boolean, offset: Int, limit: Int, sort: String, order: String): List<MallGoods> {
@@ -80,6 +80,6 @@ class MallGoodService {
 
         PageHelper.startPage<Int>(offset, limit)
 
-        return goodsMapper.selectByExampleSelective(example, *columns)
+        return goodsMapper!!.selectByExampleSelective(example, *columns)
     }
 }

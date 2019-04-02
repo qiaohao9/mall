@@ -10,28 +10,28 @@ import javax.annotation.Resource
 @Service
 class MallGoodsAttributeService {
     @Resource
-    private lateinit var goodsAttributeMapper: MallGoodsAttributeMapper
+    private var goodsAttributeMapper: MallGoodsAttributeMapper? = null
 
     fun queryByGid(goodsId: Int): List<MallGoodsAttribute> {
         var example: MallGoodsAttributeExample = MallGoodsAttributeExample()
         example.or().andGoodsIdEqualTo(goodsId).andDeletedEqualTo(false)
-        return goodsAttributeMapper.selectByExample(example)
+        return goodsAttributeMapper!!.selectByExample(example)
     }
 
     fun add(goodsAttribute: MallGoodsAttribute) {
         goodsAttribute.addTime = LocalDateTime.now()
         goodsAttribute.updateTime = LocalDateTime.now()
-        goodsAttributeMapper.insertSelective(goodsAttribute)
+        goodsAttributeMapper!!.insertSelective(goodsAttribute)
     }
 
     fun findById(id: Int): MallGoodsAttribute {
-        return goodsAttributeMapper.selectByPrimaryKey(id)
+        return goodsAttributeMapper!!.selectByPrimaryKey(id)
     }
 
     fun deleteByGid(gid: Int) {
         var example: MallGoodsAttributeExample = MallGoodsAttributeExample()
         example.or().andGoodsIdEqualTo(gid)
-        goodsAttributeMapper.logicalDeleteByExample(example)
+        goodsAttributeMapper!!.logicalDeleteByExample(example)
     }
 
 }

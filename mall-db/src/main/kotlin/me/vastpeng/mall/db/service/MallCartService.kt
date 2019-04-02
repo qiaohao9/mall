@@ -12,45 +12,45 @@ import javax.annotation.Resource
 @Service
 class MallCartService {
     @Resource
-    private lateinit var cartMapper: MallCartMapper
+    private var cartMapper: MallCartMapper? = null
 
     fun queryExist(goodsId: Int, productId: Int, userId: Int): List<MallCart> {
         var example: MallCartExample = MallCartExample()
         example.or().andGoodsIdEqualTo(goodsId).andProductIdEqualTo(productId).andUserIdEqualTo(userId).andDeletedEqualTo(false)
-        return cartMapper.selectByExample(example)
+        return cartMapper!!.selectByExample(example)
     }
 
     fun add(cart: MallCart) {
         cart.addTime = LocalDateTime.now()
         cart.updateTime = LocalDateTime.now()
-        cartMapper.insertSelective(cart)
+        cartMapper!!.insertSelective(cart)
     }
 
     fun updateById(cart: MallCart): Int {
         cart.updateTime = LocalDateTime.now()
-        return cartMapper.updateByPrimaryKeySelective(cart)
+        return cartMapper!!.updateByPrimaryKeySelective(cart)
     }
 
     fun queryByUid(userId: Int): List<MallCart> {
         var example: MallCartExample = MallCartExample()
         example.or().andUserIdEqualTo(userId).andDeletedEqualTo(false)
-        return cartMapper.selectByExample(example)
+        return cartMapper!!.selectByExample(example)
     }
 
     fun queryByUidAndChecked(userId: Int): List<MallCart> {
         var example: MallCartExample = MallCartExample()
         example.or().andUserIdEqualTo(userId).andCheckedEqualTo(true).andDeletedEqualTo(false)
-        return cartMapper.selectByExample(example)
+        return cartMapper!!.selectByExample(example)
     }
 
     fun delete(productList: List<Int>, userId: Int): Int {
         var example: MallCartExample = MallCartExample()
         example.or().andUserIdEqualTo(userId).andProductIdIn(productList)
-        return cartMapper.logicalDeleteByExample(example)
+        return cartMapper!!.logicalDeleteByExample(example)
     }
 
     fun findById(id: Int): MallCart {
-        return cartMapper.selectByPrimaryKey(id)
+        return cartMapper!!.selectByPrimaryKey(id)
     }
 
     fun updateCheck(userId: Int, idsList: List<Int>, checked: Boolean): Int {
@@ -61,7 +61,7 @@ class MallCartService {
         cart.checked = checked
         cart.updateTime = LocalDateTime.now()
 
-        return cartMapper.updateByExampleSelective(cart, example)
+        return cartMapper!!.updateByExampleSelective(cart, example)
     }
 
     fun clearGoods(userId: Int) {
@@ -70,7 +70,7 @@ class MallCartService {
 
         var cart: MallCart = MallCart()
         cart.deleted = true
-        cartMapper.updateByExampleSelective(cart, example)
+        cartMapper!!.updateByExampleSelective(cart, example)
     }
 
     fun querySelective(userId: Int, goodsId: Int, page: Int, limit: Int, sort: String, order: String): List<MallCart> {
@@ -91,16 +91,16 @@ class MallCartService {
         }
 
         PageHelper.startPage<Int>(page, limit)
-        return cartMapper.selectByExample(example)
+        return cartMapper!!.selectByExample(example)
     }
 
     fun deleteById(id: Int) {
-        cartMapper.logicalDeleteByPrimaryKey(id)
+        cartMapper!!.logicalDeleteByPrimaryKey(id)
     }
 
     fun checkExist(goodsId: Int): Boolean {
         var example: MallCartExample = MallCartExample()
         example.or().andGoodsIdEqualTo(goodsId).andCheckedEqualTo(true).andDeletedEqualTo(false)
-        return cartMapper.countByExample(example) != 0L
+        return cartMapper!!.countByExample(example) != 0L
     }
 }

@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 @Service
 class CouponAssignService {
     @Autowired
-    private lateinit var couponUserService: MallCouponUserService
+    private var couponUserService: MallCouponUserService? = null
     @Autowired
     private lateinit var couponService: MallCouponService
 
@@ -18,7 +18,7 @@ class CouponAssignService {
         var couponList: List<MallCoupon> = couponService.queryRegister()
         for (coupon: MallCoupon in couponList) {
             var couponId: Int = coupon.id
-            var count: Int = couponUserService.countUserAndCoupon(userId, couponId)
+            var count: Int = couponUserService!!.countUserAndCoupon(userId, couponId)
 
             if (count == 0) {
                 continue
@@ -41,7 +41,7 @@ class CouponAssignService {
                     }
                 }
 
-                couponUserService.add(couponUser)
+                couponUserService!!.add(couponUser)
             }
         }
     }

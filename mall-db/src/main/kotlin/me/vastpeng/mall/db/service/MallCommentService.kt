@@ -13,14 +13,14 @@ import javax.annotation.Resource
 @Service
 class MallCommentService {
     @Resource
-    private lateinit var commentMapper: MallCommentMapper
+    private var commentMapper: MallCommentMapper? = null
 
     fun queryGoodsByGid(id: Int, offset: Int, limit: Int): List<MallComment> {
         var example: MallCommentExample = MallCommentExample()
         example.orderByClause = MallComment.Column.addTime.desc()
         example.or().andValueIdEqualTo(id).andTypeEqualTo(0).andDeletedEqualTo(false)
         PageHelper.startPage<Int>(offset, limit)
-        return commentMapper.selectByExample(example)
+        return commentMapper!!.selectByExample(example)
     }
 
     fun query(type: Byte, valueId: Int, showType: Int, offset: Int, limit: Int): List<MallComment> {
@@ -34,7 +34,7 @@ class MallCommentService {
         }
 
         PageHelper.startPage<Int>(offset, limit)
-        return commentMapper.selectByExample(example)
+        return commentMapper!!.selectByExample(example)
     }
 
     fun count(type: Byte, valueId: Int, showType: Int): Int {
@@ -45,13 +45,13 @@ class MallCommentService {
             else -> throw RuntimeException("showType 不支持")
         }
 
-        return commentMapper.countByExample(example).toInt()
+        return commentMapper!!.countByExample(example).toInt()
     }
 
     fun save(comment: MallComment): Int {
         comment.addTime = LocalDateTime.now()
         comment.updateTime = LocalDateTime.now()
-        return commentMapper.insertSelective(comment)
+        return commentMapper!!.insertSelective(comment)
     }
 
     fun querySelective(userId: String, valueId: String, page: Int, size: Int, sort: String, order: String): List<MallComment> {
@@ -73,17 +73,17 @@ class MallCommentService {
             example.orderByClause = "$sort $order"
         }
         PageHelper.startPage<Int>(page, size)
-        return commentMapper.selectByExample(example)
+        return commentMapper!!.selectByExample(example)
     }
 
     fun deleteById(id: Int) {
-        commentMapper.logicalDeleteByPrimaryKey(id)
+        commentMapper!!.logicalDeleteByPrimaryKey(id)
     }
 
     fun queryReply(id: Int): String? {
         var example: MallCommentExample = MallCommentExample()
         example.or().andTypeEqualTo(2).andValueIdEqualTo(id)
-        var commentReply: List<MallComment> = commentMapper.selectByExampleSelective(example, MallComment.Column.content)
+        var commentReply: List<MallComment> = commentMapper!!.selectByExampleSelective(example, MallComment.Column.content)
         // 目前业务只支持回复一次
         if (commentReply.size == 1) {
             return commentReply[0].content
@@ -93,7 +93,7 @@ class MallCommentService {
     }
 
     fun findById(id: Int): MallComment {
-        return commentMapper.selectByPrimaryKey(id)
+        return commentMapper!!.selectByPrimaryKey(id)
     }
 
 }

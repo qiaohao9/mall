@@ -12,12 +12,12 @@ import javax.annotation.Resource
 @Service
 class MallAdService {
     @Resource
-    private lateinit var adMapper: MallAdMapper
+    private var adMapper: MallAdMapper? = null
 
     fun queryIndex(): List<MallAd> {
         var example: MallAdExample = MallAdExample()
         example.or().andPositionEqualTo(1).andDeletedEqualTo(false).andEnabledEqualTo(true)
-        return adMapper.selectByExample(example)
+        return adMapper!!.selectByExample(example)
     }
 
     fun querySelective(name: String, content: String, page: Int, limit: Int, sort: String, order: String): List<MallAd> {
@@ -38,25 +38,25 @@ class MallAdService {
         }
 
         PageHelper.startPage<Int>(page, limit)
-        return adMapper.selectByExample(example)
+        return adMapper!!.selectByExample(example)
     }
 
     fun updateById(ad: MallAd): Int {
         ad.updateTime = LocalDateTime.now()
-        return adMapper.updateByPrimaryKeySelective(ad)
+        return adMapper!!.updateByPrimaryKeySelective(ad)
     }
 
     fun deleteById(id: Int) {
-        adMapper.logicalDeleteByPrimaryKey(id)
+        adMapper!!.logicalDeleteByPrimaryKey(id)
     }
 
     fun add(ad: MallAd) {
         ad.addTime = LocalDateTime.now()
         ad.updateTime = LocalDateTime.now()
-        adMapper.insertSelective(ad)
+        adMapper!!.insertSelective(ad)
     }
 
     fun findById(id: Int): MallAd {
-        return adMapper.selectByPrimaryKey(id)
+        return adMapper!!.selectByPrimaryKey(id)
     }
 }

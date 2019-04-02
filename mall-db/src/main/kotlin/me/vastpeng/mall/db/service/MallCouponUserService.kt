@@ -13,24 +13,24 @@ import javax.annotation.Resource
 @Service
 class MallCouponUserService {
     @Resource
-    private lateinit var couponUserMapper: MallCouponUserMapper
+    private var couponUserMapper: MallCouponUserMapper? = null
 
     fun countCoupon(couponId: Int): Int {
         var example: MallCouponUserExample = MallCouponUserExample()
         example.or().andCouponIdEqualTo(couponId).andDeletedEqualTo(false)
-        return couponUserMapper.countByExample(example).toInt()
+        return couponUserMapper!!.countByExample(example).toInt()
     }
 
     fun countUserAndCoupon(userId: Int, couponId: Int): Int {
         var example: MallCouponUserExample = MallCouponUserExample()
         example.or().andUserIdEqualTo(userId).andCouponIdEqualTo(couponId).andDeletedEqualTo(false)
-        return couponUserMapper.countByExample(example).toInt()
+        return couponUserMapper!!.countByExample(example).toInt()
     }
 
     fun add(couponUser: MallCouponUser) {
         couponUser.addTime = LocalDateTime.now()
         couponUser.updateTime = LocalDateTime.now()
-        couponUserMapper.insertSelective(couponUser)
+        couponUserMapper!!.insertSelective(couponUser)
     }
 
     fun queryList(userId: Int?, couponId: Int?, status: Short?, page: Int?, size: Int?, sort: String?, order: String?): List<MallCouponUser> {
@@ -55,7 +55,7 @@ class MallCouponUserService {
             PageHelper.startPage<Int>(page!!, size!!)
         }
 
-        return couponUserMapper.selectByExample(example)
+        return couponUserMapper!!.selectByExample(example)
     }
 
     fun queryAll(userId: Int, couponId: Int): List<MallCouponUser> {
@@ -75,17 +75,17 @@ class MallCouponUserService {
     }
 
     fun findById(id: Int): MallCouponUser {
-        return couponUserMapper.selectByPrimaryKey(id)
+        return couponUserMapper!!.selectByPrimaryKey(id)
     }
 
     fun update(couponUser: MallCouponUser): Int {
         couponUser.updateTime = LocalDateTime.now()
-        return couponUserMapper.updateByPrimaryKeySelective(couponUser)
+        return couponUserMapper!!.updateByPrimaryKeySelective(couponUser)
     }
 
     fun queryExpired(): List<MallCouponUser> {
         var example: MallCouponUserExample = MallCouponUserExample()
         example.or().andStatusEqualTo(CouponUserConstant.STATUS_USABLE).andEndTimeLessThan(LocalDateTime.now()).andDeletedEqualTo(false)
-        return couponUserMapper.selectByExample(example)
+        return couponUserMapper!!.selectByExample(example)
     }
 }

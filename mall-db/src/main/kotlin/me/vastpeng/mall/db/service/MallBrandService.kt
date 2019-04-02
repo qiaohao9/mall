@@ -12,7 +12,7 @@ import javax.annotation.Resource
 @Service
 class MallBrandService {
     @Resource
-    private lateinit var brandMapper: MallBrandMapper
+    private var brandMapper: MallBrandMapper? = null
 
     private var columns: Array<MallBrand.Column> = arrayOf(MallBrand.Column.id, MallBrand.Column.name, MallBrand.Column.desc, MallBrand.Column.picUrl, MallBrand.Column.floorPrice)
 
@@ -21,17 +21,17 @@ class MallBrandService {
         example.or().andDeletedEqualTo(false)
         example.orderByClause = "and_time desc"
         PageHelper.startPage<Int>(offset, limit)
-        return brandMapper.selectByExampleSelective(example, *columns)
+        return brandMapper!!.selectByExampleSelective(example, *columns)
     }
 
     fun queryTotalCount(): Int {
         var example: MallBrandExample = MallBrandExample()
         example.or().andDeletedEqualTo(false)
-        return brandMapper.countByExample(example).toInt()
+        return brandMapper!!.countByExample(example).toInt()
     }
 
     fun findById(id: Int): MallBrand {
-        return brandMapper.selectByPrimaryKey(id)
+        return brandMapper!!.selectByPrimaryKey(id)
     }
 
     fun querySelective(id: String, name: String, page: Int, size: Int, sort: String, order: String): List<MallBrand> {
@@ -52,28 +52,28 @@ class MallBrandService {
         }
 
         PageHelper.startPage<Int>(page, size)
-        return brandMapper.selectByExample(example)
+        return brandMapper!!.selectByExample(example)
     }
 
     fun updateById(brand: MallBrand): Int {
         brand.updateTime = LocalDateTime.now()
-        return brandMapper.updateByPrimaryKeySelective(brand)
+        return brandMapper!!.updateByPrimaryKeySelective(brand)
     }
 
     fun deleteById(id: Int) {
-        brandMapper.logicalDeleteByPrimaryKey(id)
+        brandMapper!!.logicalDeleteByPrimaryKey(id)
     }
 
     fun add(brand: MallBrand) {
         brand.addTime = LocalDateTime.now()
         brand.updateTime = LocalDateTime.now()
-        brandMapper.insertSelective(brand)
+        brandMapper!!.insertSelective(brand)
     }
 
     fun all(): List<MallBrand> {
         var example: MallBrandExample = MallBrandExample()
         example.or().andDeletedEqualTo(false)
-        return brandMapper.selectByExample(example)
+        return brandMapper!!.selectByExample(example)
     }
 
 }

@@ -12,37 +12,37 @@ import javax.annotation.Resource
 @Service
 class MallAddressService {
     @Resource
-    private lateinit var addressMapper: MallAddressMapper
+    private var addressMapper: MallAddressMapper? = null
 
     fun queryByUid(uid: Int): MutableList<MallAddress>? {
         var example: MallAddressExample = MallAddressExample()
         example.or().andUserIdEqualTo(uid).andDeletedEqualTo(false)
-        return addressMapper.selectByExample(example)
+        return addressMapper!!.selectByExample(example)
     }
 
     fun findById(id: Int): MallAddress {
-        return addressMapper.selectByPrimaryKey(id)
+        return addressMapper!!.selectByPrimaryKey(id)
     }
 
     fun add(address: MallAddress): Int {
         address.addTime = LocalDateTime.now()
         address.updateTime = LocalDateTime.now()
-        return addressMapper.insertSelective(address)
+        return addressMapper!!.insertSelective(address)
     }
 
     fun update(address: MallAddress): Int {
         address.updateTime = LocalDateTime.now()
-        return addressMapper.updateByPrimaryKeySelective(address)
+        return addressMapper!!.updateByPrimaryKeySelective(address)
     }
 
     fun delete(id: Int) {
-        addressMapper.logicalDeleteByPrimaryKey(id)
+        addressMapper!!.logicalDeleteByPrimaryKey(id)
     }
 
     fun findDefault(userId: Int): MallAddress {
         var example: MallAddressExample = MallAddressExample()
         example.or().andUserIdEqualTo(userId).andIsDefaultEqualTo(true).andDeletedEqualTo(false)
-        return addressMapper.selectOneByExample(example)
+        return addressMapper!!.selectOneByExample(example)
     }
 
     fun resetDefault(userId: Int) {
@@ -52,7 +52,7 @@ class MallAddressService {
 
         var example: MallAddressExample = MallAddressExample()
         example.or().andUserIdEqualTo(userId).andDeletedEqualTo(false)
-        addressMapper.updateByExampleSelective(address, example)
+        addressMapper!!.updateByExampleSelective(address, example)
     }
 
     fun querySelective(userId: Int, name: String, page: Int, limit: Int, sort: String, order: String): List<MallAddress> {
@@ -73,6 +73,6 @@ class MallAddressService {
         }
 
         PageHelper.startPage<Int>(page, limit)
-        return addressMapper.selectByExample(example)
+        return addressMapper!!.selectByExample(example)
     }
 }

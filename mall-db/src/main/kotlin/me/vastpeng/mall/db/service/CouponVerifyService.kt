@@ -11,13 +11,13 @@ import java.time.LocalDateTime
 @Service
 class CouponVerifyService {
     @Autowired
-    private lateinit var couponUserService: MallCouponUserService
+    private var couponUserService: MallCouponUserService? = null
     @Autowired
     private lateinit var couponService: MallCouponService
 
     fun checkCoupon(userID: Int, couponId: Int, checkedGoodsPrice: BigDecimal): MallCoupon? {
         var coupon: MallCoupon = couponService.findById(couponId)
-        var couponUser: MallCouponUser? = couponUserService.queryOne(userID, couponId)
+        var couponUser: MallCouponUser? = couponUserService!!.queryOne(userID, couponId)
         if (coupon == null || couponUser == null) {
             return null
         }

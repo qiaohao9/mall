@@ -12,12 +12,12 @@ import javax.annotation.Resource
 @Service
 class MallFeedbackService {
     @Resource
-    private lateinit var feedbackMapper: MallFeedbackMapper
+    private var feedbackMapper: MallFeedbackMapper? = null
 
     fun add(feedBack: MallFeedback): Int {
         feedBack.addTime = LocalDateTime.now()
         feedBack.updateTime = LocalDateTime.now()
-        return feedbackMapper.insertSelective(feedBack)
+        return feedbackMapper!!.insertSelective(feedBack)
     }
 
     fun querySelective(userId: Int, userName: String, page: Int, limit: Int, sort: String, order: String): List<MallFeedback> {
@@ -38,6 +38,6 @@ class MallFeedbackService {
         }
 
         PageHelper.startPage<Int>(page, limit)
-        return feedbackMapper.selectByExample(example)
+        return feedbackMapper!!.selectByExample(example)
     }
 }
