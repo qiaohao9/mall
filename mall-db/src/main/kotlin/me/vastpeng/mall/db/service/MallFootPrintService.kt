@@ -48,9 +48,7 @@ class MallFootPrintService {
         }
         criteria.andDeletedEqualTo(false);
 
-        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
-            example.setOrderByClause(sort + " " + order);
-        }
+        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) example.orderByClause = "$sort $order"
 
         PageHelper.startPage<Int>(page, size)
         return footprintMapper.selectByExample(example);
