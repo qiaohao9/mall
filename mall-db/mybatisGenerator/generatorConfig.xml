@@ -46,7 +46,6 @@
                         connectionURL="jdbc:mysql://vastpeng.me:3307/mall?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;verifyServerCertificate=false&amp;useSSL=false&amp;nullCatalogMeansCurrent=true"
                         userId="root"
                         password="123456"/>
-
         <javaTypeResolver>
             <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
