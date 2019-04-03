@@ -20,18 +20,18 @@ import kotlin.collections.HashMap
 @Service
 class MallOrderService {
     @Resource
-    private var mallOrderMapper: MallOrderMapper? = null
+    private lateinit var mallOrderMapper: MallOrderMapper
     @Resource
-    private var orderMapper: OrderMapper? = null
+    private lateinit var orderMapper: OrderMapper
 
     fun count(userId: Int): Int {
         var example = MallOrderExample()
         example.or().andUserIdEqualTo(userId).andDeletedEqualTo(false)
-        return mallOrderMapper!!.countByExample(example).toInt()
+        return mallOrderMapper.countByExample(example).toInt()
     }
 
-    fun findById(orderId: Int): MallOrder {
-        return mallOrderMapper!!.selectByPrimaryKey(orderId)
+    fun findById(orderId: Int): MallOrder? {
+        return mallOrderMapper.selectByPrimaryKey(orderId)
     }
 
     private fun getRandomNum(num: Int): String {
@@ -48,7 +48,7 @@ class MallOrderService {
     fun countByOrderSn(userId: Int, orderSn: String): Int {
         var example = MallOrderExample()
         example.or().andUserIdEqualTo(userId).andOrderSnEqualTo(orderSn).andDeletedEqualTo(false)
-        return mallOrderMapper!!.countByExample(example).toInt()
+        return mallOrderMapper.countByExample(example).toInt()
     }
 
     // TODO 这里应该产生一个唯一的订单，但是实际上这里仍然存在两个订单相同的可能性
@@ -73,7 +73,7 @@ class MallOrderService {
         }
         criteria.andDeletedEqualTo(false)
         PageHelper.startPage<Int>(page, size)
-        return mallOrderMapper!!.selectByExample(example)
+        return mallOrderMapper.selectByExample(example)
     }
 
     fun querySelective(userId: Int, orderSn: String, orderStatusArray: List<Short>, page: Int, size: Int, sort: String, order: String): List<MallOrder> {
@@ -96,47 +96,47 @@ class MallOrderService {
         }
 
         PageHelper.startPage<Int>(page, size)
-        return mallOrderMapper!!.selectByExample(example)
+        return mallOrderMapper.selectByExample(example)
     }
 
     fun updateWithOptimisticLocker(order: MallOrder): Int {
         var preUpdateTime = order.updateTime
         order.updateTime = LocalDateTime.now()
-        return orderMapper!!.updateWithOptimisticLocker(preUpdateTime, order)
+        return orderMapper.updateWithOptimisticLocker(preUpdateTime, order)
     }
 
     fun deleteById(id: Int) {
-        mallOrderMapper!!.logicalDeleteByPrimaryKey(id)
+        mallOrderMapper.logicalDeleteByPrimaryKey(id)
     }
 
     fun count(): Int {
         var example = MallOrderExample()
         example.or().andDeletedEqualTo(false)
-        return mallOrderMapper!!.countByExample(example).toInt()
+        return mallOrderMapper.countByExample(example).toInt()
     }
 
     fun queryUnpaid(): List<MallOrder> {
         var example = MallOrderExample()
         example.or().andOrderStatusEqualTo(OrderUtil.STATUS_CREATE).andDeletedEqualTo(false)
-        return mallOrderMapper!!.selectByExample(example)
+        return mallOrderMapper.selectByExample(example)
     }
 
     fun queryUnconfirm(): List<MallOrder> {
         var example = MallOrderExample()
         example.or().andOrderStatusEqualTo(OrderUtil.STATUS_SHIP).andShipTimeIsNotNull().andDeletedEqualTo(false)
-        return mallOrderMapper!!.selectByExample(example)
+        return mallOrderMapper.selectByExample(example)
     }
 
     fun findBySn(orderSn: String): MallOrder {
         var example = MallOrderExample()
         example.or().andOrderSnEqualTo(orderSn).andDeletedEqualTo(false)
-        return mallOrderMapper!!.selectOneByExample(example)
+        return mallOrderMapper.selectOneByExample(example)
     }
 
     fun orderInfo(userId: Int): Map<Any, Any> {
         var example = MallOrderExample()
         example.or().andUserIdEqualTo(userId).andDeletedEqualTo(false)
-        var orders = mallOrderMapper!!.selectByExampleSelective(example, MallOrder.Column.orderStatus, MallOrder.Column.comments)
+        var orders = mallOrderMapper.selectByExampleSelective(example, MallOrder.Column.orderStatus, MallOrder.Column.comments)
 
         var unpaid = 0
         var unship = 0
@@ -168,7 +168,7 @@ class MallOrderService {
     fun queryComment(): List<MallOrder> {
         var example = MallOrderExample()
         example.or().andCommentsGreaterThan(0.toShort()).andDeletedEqualTo(false)
-        return mallOrderMapper!!.selectByExample(example)
+        return mallOrderMapper.selectByExample(example)
 
     }
 }
