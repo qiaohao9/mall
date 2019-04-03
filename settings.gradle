@@ -11,3 +11,4 @@ rootProject.name = "mall"
 
 include 'mall-db'
 include 'mall-core'
+include 'mall-admin-api'
