@@ -10,3 +10,4 @@
 rootProject.name = "mall"
 
 include 'mall-db'
+include 'mall-core'
