@@ -4,60 +4,47 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.spring' version '1.3.21'
     id 'io.spring.dependency-management' version '1.0.7.RELEASE'
     id 'com.arenagod.gradle.MybatisGenerator' version '1.4'
-
 }
 
-group = 'me.vastpeng.mall'
-version = '0.0.1'
-sourceCompatibility = '1.8'
+group = "me.vastpeng.mall"
+version = "0.0.1"
+sourceCompatibility = "1.8"
 
-repositories {
-    mavenCentral()
-}
-
-def mybatisGeneratorCore = 'org.mybatis.generator:mybatis-generator-core:1.3.7'
-def itfswMybatisGeneratorPlugin = 'com.itfsw:mybatis-generator-plugin:1.2.12'
+def mybatisGeneratorCore = "org.mybatis.generator:mybatis-generator-core:1.3.7"
+def itfswMybatisGeneratorPlugin = "com.itfsw:mybatis-generator-plugin:1.2.12"
 
 mybatisGenerator {
     verbose = false
     configFile = "mybatisGenerator/generatorConfig.xml"
 
     dependencies {
-        mybatisGenerator project(':')
+        mybatisGenerator project(":")
         mybatisGenerator itfswMybatisGeneratorPlugin
         mybatisGenerator mybatisGeneratorCore
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    implementation mybatisGeneratorCore
-    implementation itfswMybatisGeneratorPlugin
-    testCompile 'junit:junit:4.12'
-}
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin"
 
-dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-reflect'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
-
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springframework.boot:spring-boot-starter-web"
 
     implementation "mysql:mysql-connector-java:5.1.46"
     implementation "com.alibaba:druid-spring-boot-starter:1.1.10"
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0"
     implementation "com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10"
     implementation mybatisGeneratorCore
     implementation itfswMybatisGeneratorPlugin
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 }
 
 compileKotlin {
     kotlinOptions {
-        freeCompilerArgs = ['-Xjsr305=strict']
-        jvmTarget = '1.8'
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
     }
 }

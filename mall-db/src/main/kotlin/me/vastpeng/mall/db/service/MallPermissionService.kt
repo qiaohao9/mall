@@ -1,6 +1,5 @@
 package me.vastpeng.mall.db.service
 
-import jdk.vm.ci.meta.Local
 import me.vastpeng.mall.db.dao.MallPermissionMapper
 import me.vastpeng.mall.db.domain.MallPermission
 import me.vastpeng.mall.db.domain.MallPermissionExample
