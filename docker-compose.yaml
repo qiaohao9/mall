@@ -5,6 +5,7 @@ services:
     image: mysql:5.7
     container_name: mall-mysql
     environment:
+      TZ: Asia/Shanghai
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_DATABASE: mall
       MYSQL_USER: mall
