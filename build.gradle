@@ -8,3 +8,6 @@ allprojects {
         mavenCentral()
     }
 }
+
+group = 'me.vastpeng.mall'
+version = '0.0.1'
