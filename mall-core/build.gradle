@@ -19,6 +19,8 @@ dependencies {
 
     implementation 'com.github.binarywang:weixin-java-pay:3.3.0'
     implementation 'com.github.binarywang:weixin-java-miniapp:3.3.0'
+    
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
 
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
