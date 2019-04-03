@@ -1,30 +1,31 @@
-package me.vastpeng.mall.core.util
+package me.vastpeng.mall.core.util;
 
-import java.util.*
+import org.jetbrains.annotations.NotNull;
 
-class CharUtil {
-    companion object {
+import java.util.*;
 
-        fun getRandomString(num: Int): String {
-            val base = "abcdefghijklmnopqrstuvwxyz0123456789"
-            val random = Random()
-            val sb = StringBuffer()
-            for (i in 0 until num) {
-                val number = random.nextInt(base.length)
-                sb.append(base[number])
-            }
-            return sb.toString()
-        }
+public class CharUtil {
 
-        fun getRandomNum(num: Int): String {
-            val base = "0123456789"
-            val random = Random()
-            val sb = StringBuffer()
-            for (i in 0 until num) {
-                val number = random.nextInt(base.length)
-                sb.append(base[number])
-            }
-            return sb.toString()
-        }
+    public static String getRandomString(Integer num) {
+        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+        return getString(num, base);
     }
+
+    @NotNull
+    private static String getString(Integer num, String base) {
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < num; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
+    }
+
+    public static String getRandomNum(Integer num) {
+        String base = "0123456789";
+        return getString(num, base);
+    }
+
 }
+

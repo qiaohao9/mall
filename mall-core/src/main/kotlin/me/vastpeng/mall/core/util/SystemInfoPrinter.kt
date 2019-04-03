@@ -1,6 +1,6 @@
 package me.vastpeng.mall.core.util
 
-import sun.net.www.protocol.http.AuthenticatorKeys.getKey
+import java.util.LinkedHashMap
 
 
 class SystemInfoPrinter {
@@ -9,7 +9,7 @@ class SystemInfoPrinter {
 
         private var maxSize = 0
 
-        fun printInfo(title: String, infos: Map<String, String>) {
+        fun printInfo(title: String, infos: LinkedHashMap<String, String?>) {
             setMaxSize(infos)
 
             printHeader(title)
