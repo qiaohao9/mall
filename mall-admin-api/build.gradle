@@ -22,8 +22,6 @@ dependencies {
 
     implementation project(':mall-db')
     implementation project(':mall-core')
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 compileKotlin {
