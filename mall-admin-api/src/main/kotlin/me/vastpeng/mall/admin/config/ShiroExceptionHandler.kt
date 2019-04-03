@@ -1,4 +1,4 @@
-package me.vastpeng.mall.adminapi.config
+package me.vastpeng.mall.admin.config
 
 import me.vastpeng.mall.core.util.ResponseUtil
 import org.apache.shiro.authc.AuthenticationException

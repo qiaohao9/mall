@@ -1,12 +1,12 @@
-package me.vastpeng.mall.adminapi.config
+package me.vastpeng.mall.admin.config
 
-import me.vastpeng.mall.adminapi.shiro.AdminAuthorizingRealm
+import me.vastpeng.mall.admin.shiro.AdminAuthorizingRealm
 import org.apache.shiro.realm.Realm
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.util.LinkedHashMap
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean
-import me.vastpeng.mall.adminapi.shiro.AdminWebSessionManager
+import me.vastpeng.mall.admin.shiro.AdminWebSessionManager
 import org.apache.shiro.session.mgt.SessionManager
 import org.apache.shiro.mgt.SecurityManager
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor

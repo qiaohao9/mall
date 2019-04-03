@@ -1,6 +1,6 @@
-package me.vastpeng.mall.adminapi.util
+package me.vastpeng.mall.admin.util
 
-import me.vastpeng.mall.adminapi.annotation.RequiresPermissionsDesc
+import me.vastpeng.mall.admin.annotation.RequiresPermissionsDesc
 import org.apache.shiro.authz.annotation.RequiresPermissions
 
 

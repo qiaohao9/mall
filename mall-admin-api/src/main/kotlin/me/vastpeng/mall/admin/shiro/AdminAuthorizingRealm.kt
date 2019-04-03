@@ -1,4 +1,4 @@
-package me.vastpeng.mall.adminapi.shiro
+package me.vastpeng.mall.admin.shiro
 
 import me.vastpeng.mall.core.util.bcrypt.BCryptPasswordEncoder
 import me.vastpeng.mall.db.domain.MallAdmin
@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import org.springframework.util.StringUtils
-import javax.annotation.Resource
 
 @Configuration
 class AdminAuthorizingRealm : AuthorizingRealm() {

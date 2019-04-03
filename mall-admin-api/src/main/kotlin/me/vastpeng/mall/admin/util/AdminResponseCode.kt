@@ -1,4 +1,4 @@
-package me.vastpeng.mall.adminapi.util
+package me.vastpeng.mall.admin.util
 
 object AdminResponseCode {
     val ADMIN_INVALID_NAME = 601

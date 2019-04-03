@@ -1,4 +1,4 @@
-package me.vastpeng.mall.adminapi.shiro
+package me.vastpeng.mall.admin.shiro
 
 import org.apache.commons.lang3.StringUtils
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest

@@ -1,4 +1,4 @@
-package me.vastpeng.mall.adminapi.dao;
+package me.vastpeng.mall.admin.dao;
 
 import java.math.BigDecimal;
 

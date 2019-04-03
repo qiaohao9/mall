@@ -1,7 +1,7 @@
-package me.vastpeng.mall.adminapi.util
+package me.vastpeng.mall.admin.util
 
 import java.util.ArrayList
-import me.vastpeng.mall.adminapi.annotation.RequiresPermissionsDesc
+import me.vastpeng.mall.admin.annotation.RequiresPermissionsDesc
 import org.apache.commons.lang3.StringUtils
 import org.apache.commons.lang3.reflect.MethodUtils
 import org.apache.shiro.authz.annotation.RequiresPermissions
