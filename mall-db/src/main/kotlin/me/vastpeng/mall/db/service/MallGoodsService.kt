@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils
 import javax.annotation.Resource
 
 @Service
-class MallGoodService {
+class MallGoodsService {
     var columns = arrayOf(MallGoods.Column.id, MallGoods.Column.name, MallGoods.Column.brief, MallGoods.Column.picUrl, MallGoods.Column.isHot, MallGoods.Column.isNew, MallGoods.Column.counterPrice, MallGoods.Column.retailPrice)
     @Resource
     private var goodsMapper: MallGoodsMapper? = null
