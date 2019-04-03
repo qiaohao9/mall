@@ -194,7 +194,7 @@ class MallGoodsService {
         criteria1.andDeletedEqualTo(false)
         criteria2.andDeletedEqualTo(false)
 
-        val goodsList = goodsMapper.selectByExampleSelective(example, Column.categoryId)
+        val goodsList = goodsMapper.selectByExampleSelective(example, MallGoods.Column.categoryId)
         val cats = ArrayList<Int>()
         for (goods in goodsList) {
             cats.add(goods.categoryId)
