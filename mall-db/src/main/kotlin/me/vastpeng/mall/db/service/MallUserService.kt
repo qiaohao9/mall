@@ -14,38 +14,40 @@ import org.springframework.util.StringUtils
 @Service
 class MallUserService {
     @Resource
-    private var userMapper: MallUserMapper? = null
+    private lateinit var userMapper: MallUserMapper
 
-    fun findById(userId: Int?): MallUser {
-        return userMapper!!.selectByPrimaryKey(userId)
+    fun findById(userId: Int?): MallUser? {
+        return userMapper.selectByPrimaryKey(userId)
     }
 
-    fun findUserVoById(userId: Int?): UserVo {
+    fun findUserVoById(userId: Int?): UserVo? {
         val user = findById(userId)
         val userVo = UserVo()
-        userVo.nickName = user.nickname
-        userVo.avatar = user.avatar
+        if (user != null) {
+            userVo.nickName = user.nickname
+            userVo.avatar = user.avatar
+        }
         return userVo
     }
 
-    fun queryByOid(openId: String): MallUser {
+    fun queryByOid(openId: String): MallUser? {
         val example = MallUserExample()
         example.or().andWeixinOpenidEqualTo(openId).andDeletedEqualTo(false)
-        return userMapper!!.selectOneByExample(example)
+        return userMapper.selectOneByExample(example)
     }
 
     fun add(user: MallUser) {
         user.addTime = LocalDateTime.now()
         user.updateTime = LocalDateTime.now()
-        userMapper!!.insertSelective(user)
+        userMapper.insertSelective(user)
     }
 
     fun updateById(user: MallUser): Int {
         user.updateTime = LocalDateTime.now()
-        return userMapper!!.updateByPrimaryKeySelective(user)
+        return userMapper.updateByPrimaryKeySelective(user)
     }
 
-    fun querySelective(username: String, mobile: String, page: Int?, size: Int?, sort: String, order: String): List<MallUser> {
+    fun querySelective(username: String, mobile: String, page: Int, size: Int, sort: String, order: String): List<MallUser> {
         val example = MallUserExample()
         val criteria = example.createCriteria()
 
@@ -61,8 +63,8 @@ class MallUserService {
             example.orderByClause = "$sort $order"
         }
 
-        PageHelper.startPage<Any>(page!!, size!!)
-        return userMapper!!.selectByExample(example)
+        PageHelper.startPage<Any>(page, size)
+        return userMapper.selectByExample(example)
     }
 
 
@@ -70,35 +72,35 @@ class MallUserService {
         val example = MallUserExample()
         example.or().andDeletedEqualTo(false)
 
-        return userMapper!!.countByExample(example) as Int
+        return userMapper.countByExample(example) as Int
     }
 
     fun queryByUsername(username: String): List<MallUser> {
         val example = MallUserExample()
         example.or().andUsernameEqualTo(username).andDeletedEqualTo(false)
-        return userMapper!!.selectByExample(example)
+        return userMapper.selectByExample(example)
     }
 
     fun checkByUsername(username: String): Boolean {
         val example = MallUserExample()
         example.or().andUsernameEqualTo(username).andDeletedEqualTo(false)
-        return userMapper!!.countByExample(example) !== 0L
+        return userMapper.countByExample(example) !== 0L
     }
 
     fun queryByMobile(mobile: String): List<MallUser> {
         val example = MallUserExample()
         example.or().andMobileEqualTo(mobile).andDeletedEqualTo(false)
-        return userMapper!!.selectByExample(example)
+        return userMapper.selectByExample(example)
     }
 
     fun queryByOpenid(openid: String): List<MallUser> {
         val example = MallUserExample()
         example.or().andWeixinOpenidEqualTo(openid).andDeletedEqualTo(false)
-        return userMapper!!.selectByExample(example)
+        return userMapper.selectByExample(example)
     }
 
     fun deleteById(id: Int?) {
-        userMapper!!.logicalDeleteByPrimaryKey(id)
+        userMapper.logicalDeleteByPrimaryKey(id)
     }
 
 
