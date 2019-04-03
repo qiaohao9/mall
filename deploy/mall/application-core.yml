@@ -1,0 +1,66 @@
+mall:
+  wx:
+    app-id: ""
+    app-secret: ""
+    mch-id: ""
+    notify-url: ""
+    key-path: ""
+
+  notify:
+    mail:
+      enable: true
+      host: ""
+      username: ""
+      password: ""
+      sendfrom: xxx@gmail.com
+      sendto: xxx@gmail.com
+
+    wx:
+      enable: true
+      template:
+        - name: paySucced
+          templateId: ""
+        - name: captcha
+          templateId: ""
+        - name: ship
+          templateId: ""
+        - name: refund
+          templateId: ""
+
+#  快鸟物流信息查询
+  express:
+    enable: true
+    appId: ""
+    appKey: ""
+    vendors:
+      - code: "ZTO"
+        name: "中通快递"
+      - code: "YTO"
+        name: "圆通速递"
+      - code: "YD"
+        name: "韵达速递"
+      - code: "YZPY"
+        name: "邮政快递包裹"
+      - code: "EMS"
+        name: "EMS"
+      - code: "DBL"
+        name: "德邦快递"
+      - code: "FAST"
+        name: "快捷快递"
+      - code: "ZJS"
+        name: "宅急送"
+      - code: "TNT"
+        name: "TNT快递"
+      - code: "UPS"
+        name: "UPS"
+      - code: "DHL"
+        name: "DHL"
+      - code: "FEDEX"
+        name: "FEDEX联邦(国内件)"
+      - code: "FEDEX_GJ"
+        name: "FEDEX联邦(国际件)"
+  storage:
+    active: local
+    local:
+      storagePath: storage
+      address: localhost:8083/wx/storage/fetch/
